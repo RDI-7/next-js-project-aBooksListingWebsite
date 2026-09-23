@@ -11,15 +11,14 @@ interface IBookDetailsPage {
 }
 
 const getBooksData = async () => {
+  try{
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`);
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch books data");
-    }
-
     const data = await res.json();
-
     return data;
+  } catch (error){
+    console.log("Error fethcing books data:", error);
+    return [];
+  }; 
 };
 
 const BookDetailsPage = async ({ params }: IBookDetailsPage) => {
